@@ -75,7 +75,7 @@ Response:
 ```
 </p></details>
 
-### `PUT* /locations/:ID`
+### `PUT /locations/:ID`
 <details>
   <summary>Example</summary><p>
 
@@ -159,7 +159,7 @@ Response:
 ```
 </p></details>
 
-### `PUT* /routes/:ID`
+### `PUT /routes/:ID`
 <details>
   <summary>Example</summary><p>
 
@@ -282,10 +282,9 @@ Location: /routes/1/plan
 ```
 </p></details>
 
-# Requirements
+# Implementation notes
 
 - Use one of the modern Web frameworks (Spring Boot, Dropwizard, Play). In case of build tool, it's OK to go with Maven or SBT, since those are both alive and well-maintained.
 - Keep in mind, that the size and the cost of everything matters.
 - Please, be nice and implement TSP algorithm by yourself (all Google is yours, for sure).
-
-*: `PUT` requests can be used for partial update
+- It's good to think about overloading, limits and possible attacks on the API.
