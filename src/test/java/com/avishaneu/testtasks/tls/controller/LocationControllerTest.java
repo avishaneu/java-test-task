@@ -3,7 +3,6 @@ package com.avishaneu.testtasks.tls.controller;
 import com.avishaneu.testtasks.tls.Application;
 import com.avishaneu.testtasks.tls.model.Location;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ import static org.junit.Assert.assertNull;
 /**
  * Created by avishaneu on 7/25/17.
  */
-@Ignore
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class LocationControllerTest {
