@@ -14,14 +14,14 @@ import org.springframework.stereotype.Service;
  * Created by avishaneu on 7/25/17.
  */
 @Service
-public class RoutePlanQueueServiceDummy implements RoutePlanQueueService {
+public class RoutePlanQueueServiceBasic implements RoutePlanQueueService {
 
-    private static final Logger log = LoggerFactory.getLogger(RoutePlanQueueServiceDummy.class);
+    private static final Logger log = LoggerFactory.getLogger(RoutePlanQueueServiceBasic.class);
 
     private RoutePlanQueueDao routePlanQueueDao;
 
     @Autowired
-    public RoutePlanQueueServiceDummy(RoutePlanQueueDao routePlanQueueDao) {
+    public RoutePlanQueueServiceBasic(RoutePlanQueueDao routePlanQueueDao) {
         this.routePlanQueueDao = routePlanQueueDao;
     }
 

@@ -1,5 +1,6 @@
 package com.avishaneu.testtasks.tls.service.implementation;
 
+import com.avishaneu.testtasks.tls.core.PlanGenerationExecutor;
 import com.avishaneu.testtasks.tls.dao.RouteDao;
 import com.avishaneu.testtasks.tls.model.Route;
 import com.avishaneu.testtasks.tls.model.RoutePlan;
@@ -13,20 +14,22 @@ import org.springframework.stereotype.Service;
  * Created by avishaneu on 7/25/17.
  */
 @Service
-public class RouteServiceDummy implements RouteService {
+public class RouteServiceBasic implements RouteService {
 
-    private static final Logger log = LoggerFactory.getLogger(RouteServiceDummy.class);
+    private static final Logger log = LoggerFactory.getLogger(RouteServiceBasic.class);
 
     private RouteDao routeDao;
+    private PlanGenerationExecutor routePlanExecutor;
 
     @Autowired
-    public RouteServiceDummy(RouteDao routeDao) {
+    public RouteServiceBasic(RouteDao routeDao, PlanGenerationExecutor routePlanExecutor) {
         this.routeDao = routeDao;
+        this.routePlanExecutor = routePlanExecutor;
     }
 
     public Route createRoute(Route route){
         route = routeDao.createRoute(route);
-        //todo generate plan
+        routePlanExecutor.generateForRoute(route.getId());
         return route;
     }
 
@@ -37,7 +40,9 @@ public class RouteServiceDummy implements RouteService {
     public void updateRoute(Integer id, Route route){
         route.setId(id);
         routeDao.updateRoute(route);
-        //todo generate plan
+        if (route.getHead() != null || route.getLocations() != null) {
+            routePlanExecutor.generateForRoute(id);
+        }
     }
 
     public void deleteRoute(Integer id){
