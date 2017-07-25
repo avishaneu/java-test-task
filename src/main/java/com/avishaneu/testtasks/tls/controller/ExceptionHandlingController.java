@@ -4,11 +4,15 @@ import com.avishaneu.testtasks.tls.model.ErrorMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
+
+import java.util.stream.Collectors;
 
 /**
  * Created by avishaneu on 7/25/2017.
@@ -24,6 +28,19 @@ public class ExceptionHandlingController {
     public ErrorMessage noHandlerFound(NoHandlerFoundException e) {
         log.warn("Nonexistent resource requested: " + e.getHttpMethod() + e.getRequestURL());
         return new ErrorMessage(HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
+    @ResponseBody
+    public ErrorMessage validationFailedException(MethodArgumentNotValidException e) {
+        BindingResult bindingResult = e.getBindingResult();
+        log.warn("Validation failed: " + e.getMessage());
+        return new ErrorMessage(HttpStatus.UNPROCESSABLE_ENTITY,
+                "Validation failed for " + bindingResult.getFieldErrors()
+                        .stream()
+                        .map(error -> error.getObjectName() + "." + error.getField())
+                        .collect(Collectors.joining(", ")));
     }
 
     @ExceptionHandler(Throwable.class)
