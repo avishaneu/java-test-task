@@ -4,6 +4,7 @@ import com.avishaneu.testtasks.tls.model.ErrorMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -41,6 +42,14 @@ public class ExceptionHandlingController {
                         .stream()
                         .map(error -> error.getObjectName() + "." + error.getField())
                         .collect(Collectors.joining(", ")));
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorMessage jsonParseException(HttpMessageNotReadableException e) {
+        log.warn("Unreadable input: "  + e.getMessage());
+        return new ErrorMessage(HttpStatus.BAD_REQUEST, "Invalid input data");
     }
 
     @ExceptionHandler(Throwable.class)
