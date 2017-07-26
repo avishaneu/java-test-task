@@ -74,7 +74,7 @@ public class PlanGenerationLocalExecutor implements PlanGenerationExecutor {
             List<Location> locations = routeDao.getRouteLocations(routeId);
             log.info("Started execution for route: " + routeId);
 
-            locations = algorithm.solve(locations);
+            locations = algorithm.solve(locations).getLocations();
 
             log.info("Completed execution for route: " + routeId +
                     ", with time: " + (System.currentTimeMillis() - start));

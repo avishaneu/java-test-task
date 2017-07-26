@@ -9,6 +9,5 @@ import java.util.List;
  */
 public interface TSPSolvingAlgorithm {
 
-    List<Location> solve(List<Location> input);
-
+    Solution solve(List<Location> input);
 }

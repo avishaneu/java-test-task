@@ -16,12 +16,12 @@ import java.util.List;
 public class SimulatedAnnealingAlgorithm implements TSPSolvingAlgorithm {
 
     @Value("${algorithms.sa.initial-temperature}")
-    private static double initialTemperature = 10000;
+    private double initialTemperature;
 
     @Value("${algorithms.sa.cooling-rate}")
-    private static double coolingRate = 0.99;
+    private double coolingRate;
 
-    public List<Location> solve(List<Location> input) {
+    public PossibleSolution solve(List<Location> input) {
         double currentTemperature = initialTemperature;
 
         PossibleSolution currentSolution = new PossibleSolution(input);
@@ -44,7 +44,7 @@ public class SimulatedAnnealingAlgorithm implements TSPSolvingAlgorithm {
             currentTemperature *= coolingRate;
         }
 
-        return bestSolutionSoFar.getLocations();
+        return bestSolutionSoFar;
     }
 
 
