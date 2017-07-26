@@ -24,6 +24,8 @@ public class SimulatedAnnealingAlgorithm implements TSPSolvingAlgorithm {
     public PossibleSolution solve(List<Location> input) {
         double currentTemperature = initialTemperature;
 
+        CostMap costMap = new CostMap(input);
+
         PossibleSolution currentSolution = new PossibleSolution(input);
         PossibleSolution bestSolutionSoFar = currentSolution.copy();
 
@@ -31,15 +33,16 @@ public class SimulatedAnnealingAlgorithm implements TSPSolvingAlgorithm {
             PossibleSolution newSolution = currentSolution.copy();
             newSolution.shuffle();
 
-            if (acceptNewSolution(newSolution.getCost(), currentSolution.getCost(), currentTemperature)) {
+            if (acceptNewSolution(costMap.getCost(newSolution), costMap.getCost(currentSolution), currentTemperature)) {
                 currentSolution = newSolution.copy();
             }
 
-            if (currentSolution.getCost() < bestSolutionSoFar.getCost()) {
+            if (costMap.getCost(currentSolution) < costMap.getCost(bestSolutionSoFar)) {
                 bestSolutionSoFar = currentSolution.copy();
             }
             currentTemperature *= coolingRate;
         }
+        bestSolutionSoFar.setSolutionCost(costMap.getCost(bestSolutionSoFar));
         return bestSolutionSoFar;
     }
 

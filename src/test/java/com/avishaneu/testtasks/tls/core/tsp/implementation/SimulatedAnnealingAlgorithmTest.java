@@ -30,17 +30,17 @@ public class SimulatedAnnealingAlgorithmTest {
 
     @Before
     public void setUp() {
-        locations.add(new Location("", 0.0, 0.0));
-        locations.add(new Location("", 2.0, 0.0));
-        locations.add(new Location("", 4.0, 0.0));
-        locations.add(new Location("", 4.0, 1.0));
-        locations.add(new Location("", 2.0, 1.0));
-        locations.add(new Location("", 0.0, 1.0));
+        locations.add(new Location(1, 0.0, 0.0));
+        locations.add(new Location(2, 2.0, 0.0));
+        locations.add(new Location(3, 4.0, 0.0));
+        locations.add(new Location(4, 4.0, 1.0));
+        locations.add(new Location(5, 2.0, 1.0));
+        locations.add(new Location(6, 0.0, 1.0));
         Collections.shuffle(locations);
     }
 
     @Test
     public void algorithmTest() {
-        assertEquals(7.0, algorithm.solve(locations).getCost(), 1.0);
+        assertEquals(7.0, algorithm.solve(locations).getSolutionCost(), 1.0);
     }
 }

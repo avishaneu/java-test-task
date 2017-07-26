@@ -34,6 +34,12 @@ public class Location {
         this.y = y;
     }
 
+    public Location(Integer id, Double x, Double y) {
+        this.id = id;
+        this.x = x;
+        this.y = y;
+    }
+
     public Integer getId() {
         return id;
     }
