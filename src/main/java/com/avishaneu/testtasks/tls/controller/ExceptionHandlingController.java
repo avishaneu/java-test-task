@@ -49,7 +49,7 @@ public class ExceptionHandlingController {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ErrorMessage jsonParseException(HttpMessageNotReadableException e) {
-        log.warn("Unreadable input: "  + e.getMessage());
+        log.warn("Unreadable input: " + e.getMessage());
         return new ErrorMessage(HttpStatus.BAD_REQUEST, "Invalid input data");
     }
 
@@ -57,7 +57,7 @@ public class ExceptionHandlingController {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ErrorMessage dataIntegrityViolationException(DataIntegrityViolationException e) {
-        log.warn("Data integrity violation: " +  e.getMessage());
+        log.warn("Data integrity violation: " + e.getMessage());
         return new ErrorMessage(HttpStatus.BAD_REQUEST, "Data integrity violation");
     }
 
@@ -65,7 +65,7 @@ public class ExceptionHandlingController {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public ErrorMessage internalServerError(Exception e) {
-        log.warn("Internal server error" , e);
+        log.warn("Internal server error", e);
         return new ErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

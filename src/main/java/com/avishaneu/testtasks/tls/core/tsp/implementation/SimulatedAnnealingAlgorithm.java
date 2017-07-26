@@ -28,7 +28,6 @@ public class SimulatedAnnealingAlgorithm implements TSPSolvingAlgorithm {
         PossibleSolution bestSolutionSoFar = currentSolution.copy();
 
         while (currentTemperature > 1) {
-
             PossibleSolution newSolution = currentSolution.copy();
             newSolution.shuffle();
 
@@ -37,22 +36,18 @@ public class SimulatedAnnealingAlgorithm implements TSPSolvingAlgorithm {
             }
 
             if (currentSolution.getCost() < bestSolutionSoFar.getCost()) {
-
                 bestSolutionSoFar = currentSolution.copy();
             }
 
             currentTemperature *= coolingRate;
         }
-
         return bestSolutionSoFar;
     }
 
-
-    private static boolean acceptNewSolution(double newSolutionEnergy, double currentSolutionEnergy,
+    private boolean acceptNewSolution(double newSolutionEnergy, double currentSolutionEnergy,
                                              double currentTemperature) {
 
         return newSolutionEnergy < currentSolutionEnergy ||
                 Math.exp((newSolutionEnergy - currentSolutionEnergy) / currentTemperature) > Math.random();
     }
-
 }

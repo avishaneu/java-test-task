@@ -42,7 +42,7 @@ public class RouteDaoH2 implements RouteDao {
 
 
     @Transactional
-    public Route createRoute(Route route){
+    public Route createRoute(Route route) {
         String sql = "INSERT INTO route (name, head) VALUES (?, ?)";
 
         KeyHolder holder = new GeneratedKeyHolder();
@@ -61,7 +61,7 @@ public class RouteDaoH2 implements RouteDao {
     }
 
     @Transactional
-    private void setLocationsToRoute(Integer routeID, List<Integer> locations){
+    private void setLocationsToRoute(Integer routeID, List<Integer> locations) {
         String deleteSql = "DELETE FROM route_location WHERE route_id = ?";
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(deleteSql);
@@ -86,7 +86,7 @@ public class RouteDaoH2 implements RouteDao {
         });
     }
 
-    public Route getRoute(Integer id){
+    public Route getRoute(Integer id) {
         String routeSql = "SELECT * FROM route WHERE id = ?";
         String routeLocationsSql = "SELECT location_id FROM route_location WHERE route_id = ?";
         try {
@@ -101,7 +101,7 @@ public class RouteDaoH2 implements RouteDao {
     }
 
     @Transactional
-    public void updateRoute(Route route){
+    public void updateRoute(Route route) {
         StringBuilder updateRoute = new StringBuilder();
         updateRoute.append("UPDATE ROUTE")
                 .append(" SET name = IFNULL(?, name),")
@@ -119,7 +119,7 @@ public class RouteDaoH2 implements RouteDao {
         setLocationsToRoute(route.getId(), route.getLocations());
     }
 
-    public void deleteRoute(Integer id){
+    public void deleteRoute(Integer id) {
         String sql = "DELETE route  WHERE id = ?";
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -128,7 +128,7 @@ public class RouteDaoH2 implements RouteDao {
         });
     }
 
-    public List<Integer> getRoutePlan(Integer id){
+    public List<Integer> getRoutePlan(Integer id) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT location_id from")
                 .append(" (SELECT location_id, location_order")
@@ -147,7 +147,7 @@ public class RouteDaoH2 implements RouteDao {
         }
     }
 
-    public List<Location> getRouteLocations(Integer id){
+    public List<Location> getRouteLocations(Integer id) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT loc.id, head, loc.x, loc.y")
                 .append(" FROM location loc")
@@ -167,7 +167,7 @@ public class RouteDaoH2 implements RouteDao {
         }
     }
 
-    public void saveRoutePlan(List<Location> locations){
+    public void saveRoutePlan(List<Location> locations) {
         String createSql = "UPDATE route_location SET location_order = ? WHERE route_id = ? and location_id = ?";
         jdbcTemplate.batchUpdate(createSql, new BatchPreparedStatementSetter() {
 

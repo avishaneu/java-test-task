@@ -37,7 +37,7 @@ public class LocationControllerTest {
     private HttpHeaders headers = new HttpHeaders();
 
     @Before
-    public void setUp(){
+    public void setUp() {
         HttpEntity<Location> entity = new HttpEntity<>(location, headers);
 
         ResponseEntity<Location> response = restTemplate.exchange(getEndpoint() + "/",
@@ -71,7 +71,7 @@ public class LocationControllerTest {
                 HttpMethod.GET, entity, Location.class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(locationId, (int)response.getBody().getId());
+        assertEquals(locationId, (int) response.getBody().getId());
     }
 
     @Test
@@ -108,7 +108,7 @@ public class LocationControllerTest {
     }
 
 
-    private String getEndpoint(){
-        return  "http://localhost:" + port + URL_PREFIX;
+    private String getEndpoint() {
+        return "http://localhost:" + port + URL_PREFIX;
     }
 }

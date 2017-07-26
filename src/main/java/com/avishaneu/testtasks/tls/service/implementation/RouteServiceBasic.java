@@ -27,17 +27,17 @@ public class RouteServiceBasic implements RouteService {
         this.routePlanExecutor = routePlanExecutor;
     }
 
-    public Route createRoute(Route route){
+    public Route createRoute(Route route) {
         route = routeDao.createRoute(route);
         routePlanExecutor.generateForRoute(route.getId());
         return route;
     }
 
-    public Route getRoute(Integer id){
-        return  routeDao.getRoute(id);
+    public Route getRoute(Integer id) {
+        return routeDao.getRoute(id);
     }
 
-    public void updateRoute(Integer id, Route route){
+    public void updateRoute(Integer id, Route route) {
         route.setId(id);
         routeDao.updateRoute(route);
         if (route.getHead() != null || route.getLocations() != null) {
@@ -45,7 +45,7 @@ public class RouteServiceBasic implements RouteService {
         }
     }
 
-    public void deleteRoute(Integer id){
+    public void deleteRoute(Integer id) {
         routeDao.deleteRoute(id);
     }
 

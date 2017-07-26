@@ -29,7 +29,7 @@ public class LocationController {
     @RequestMapping(path = "/", method = RequestMethod.POST, consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public Location createLocation(@Valid @RequestBody Location location){
+    public Location createLocation(@Valid @RequestBody Location location) {
         log.debug("Location creation requested. Location to be created: " + location);
         return locationService.createLocation(location);
     }
@@ -37,21 +37,21 @@ public class LocationController {
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Location getLocation(@PathVariable Integer id){
+    public Location getLocation(@PathVariable Integer id) {
         log.debug("Location details requested. Location id: " + id);
         return locationService.getLocation(id);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateLocation(@PathVariable Integer id, @RequestBody Location location){
+    public void updateLocation(@PathVariable Integer id, @RequestBody Location location) {
         log.debug("Location update requested. Location id: " + id + " . New location details: " + location);
         locationService.updateLocation(id, location);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteLocation(@PathVariable Integer id){
+    public void deleteLocation(@PathVariable Integer id) {
         log.debug("Location removal requested. Location id: " + id);
         locationService.deleteLocation(id);
     }

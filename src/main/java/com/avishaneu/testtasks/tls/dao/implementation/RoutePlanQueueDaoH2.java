@@ -26,10 +26,10 @@ public class RoutePlanQueueDaoH2 implements RoutePlanQueueDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public RoutePlanGenerationStatus getRoutePlanStatusByRouteId(Integer routeId){
+    public RoutePlanGenerationStatus getRoutePlanStatusByRouteId(Integer routeId) {
         String sql = "SELECT state, queue_id FROM route_plan_generation_queue WHERE route_id = ?";
         try {
-            return  jdbcTemplate.queryForObject(sql, new Object[]{routeId},
+            return jdbcTemplate.queryForObject(sql, new Object[]{routeId},
                     (rs, rowNum) -> new RoutePlanGenerationStatus(routeId,
                             rs.getInt(1), rs.getInt(2)));
         } catch (EmptyResultDataAccessException e) {
@@ -37,10 +37,10 @@ public class RoutePlanQueueDaoH2 implements RoutePlanQueueDao {
         }
     }
 
-    public RoutePlanGenerationStatus getRoutePlanStatusByQueueId(Integer queueId){
+    public RoutePlanGenerationStatus getRoutePlanStatusByQueueId(Integer queueId) {
         String sql = "SELECT route_id, state FROM route_plan_generation_queue WHERE queue_id = ?";
         try {
-            return  jdbcTemplate.queryForObject(sql, new Object[]{queueId},
+            return jdbcTemplate.queryForObject(sql, new Object[]{queueId},
                     (rs, rowNum) -> new RoutePlanGenerationStatus(rs.getInt(1),
                             rs.getInt(2), queueId));
         } catch (EmptyResultDataAccessException e) {
@@ -48,8 +48,7 @@ public class RoutePlanQueueDaoH2 implements RoutePlanQueueDao {
         }
     }
 
-
-    public void addRouteToGenerationQueue(Integer routeId, Integer queueId){
+    public void addRouteToGenerationQueue(Integer routeId, Integer queueId) {
         String sql = "MERGE INTO route_plan_generation_queue(route_id, queue_id, state) " +
                 "KEY(route_id) SELECT ?, ?, ? FROM DUAL";
 
@@ -62,7 +61,7 @@ public class RoutePlanQueueDaoH2 implements RoutePlanQueueDao {
         });
     }
 
-    public void updateRouteGenerationStatus(Integer routeId, RoutePlanGenerationStatus.Status status){
+    public void updateRouteGenerationStatus(Integer routeId, RoutePlanGenerationStatus.Status status) {
         String sql = "MERGE INTO route_plan_generation_queue(route_id, state) " +
                 "KEY(route_id) SELECT ?, ? FROM DUAL";
 

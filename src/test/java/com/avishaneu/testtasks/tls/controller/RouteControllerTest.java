@@ -4,7 +4,6 @@ import com.avishaneu.testtasks.tls.Application;
 import com.avishaneu.testtasks.tls.model.Location;
 import com.avishaneu.testtasks.tls.model.Route;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +43,7 @@ public class RouteControllerTest {
     private HttpHeaders headers = new HttpHeaders();
 
     @Before
-    public void setUp(){
+    public void setUp() {
         createLocation();
         route = new Route("Interstate 60", location.getId(), Arrays.asList(location.getId()));
         HttpEntity<Route> entity = new HttpEntity<>(route, headers);
@@ -80,7 +79,7 @@ public class RouteControllerTest {
                 HttpMethod.GET, entity, Route.class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(routeId, (int)response.getBody().getId());
+        assertEquals(routeId, (int) response.getBody().getId());
     }
 
     @Test
@@ -118,15 +117,15 @@ public class RouteControllerTest {
     }
 
 
-    private String getEndpoint(String urlPrefix){
-        return  "http://localhost:" + port + urlPrefix;
+    private String getEndpoint(String urlPrefix) {
+        return "http://localhost:" + port + urlPrefix;
     }
 
-    private String getEndpoint(){
-        return  getEndpoint(URL_PREFIX);
+    private String getEndpoint() {
+        return getEndpoint(URL_PREFIX);
     }
 
-    private void createLocation(){
+    private void createLocation() {
         HttpEntity<Location> locationEntity = new HttpEntity<>(location, headers);
 
         ResponseEntity<Location> locationResponse = restTemplate.exchange(

@@ -70,7 +70,7 @@ public class RoutePlanGenerationStatus {
 
         private int code;
 
-        Status(int code){
+        Status(int code) {
             this.code = code;
         }
 
@@ -82,13 +82,13 @@ public class RoutePlanGenerationStatus {
             }
         }
 
-        public static Status fromCode(int code){
+        public static Status fromCode(int code) {
             if (lookup.containsKey(code))
                 return lookup.get(code);
             return UNKNOWN;
         }
 
-        public int getCode(){
+        public int getCode() {
             return code;
         }
     }

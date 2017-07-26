@@ -12,17 +12,15 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class PossibleSolution extends Solution {
 
-
-    PossibleSolution (List<Location> locations) {
+    PossibleSolution(List<Location> locations) {
         super(locations);
     }
-
 
     PossibleSolution copy() {
         return new PossibleSolution(new ArrayList<>(this.locations));
     }
 
-   public void shuffle() {
+    public void shuffle() {
         this.solutionCost = null;
 
         int firstIndex = ThreadLocalRandom.current().nextInt(1, locations.size());
@@ -34,13 +32,5 @@ public class PossibleSolution extends Solution {
         locations.set(firstIndex, secondLocation);
         locations.set(secondIndex, firstLocation);
 
-    }
-
-    public void print(){
-
-        for(Location location : locations){
-            System.out.print("(" + location.getX() + ", " + location.getY() + "), ");
-        }
-        System.out.println("");
     }
 }

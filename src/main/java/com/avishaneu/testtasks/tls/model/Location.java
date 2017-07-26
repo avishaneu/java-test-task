@@ -21,7 +21,8 @@ public class Location {
 
     private Boolean head = false;
 
-    public Location() {}
+    public Location() {
+    }
 
     public Location(Integer id) {
         this.id = id;

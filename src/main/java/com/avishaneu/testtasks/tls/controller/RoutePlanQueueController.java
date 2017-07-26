@@ -36,9 +36,9 @@ public class RoutePlanQueueController {
         log.debug("Route plan generation status requested. Plan generation id: " + id);
 
         RoutePlanGenerationStatus status = routePlanQueueService.getRoutePlanStatusByQueueId(id);
-        if (RoutePlanGenerationStatus.Status.COMPLETED.equals(status.getStatus())){
+        if (RoutePlanGenerationStatus.Status.COMPLETED.equals(status.getStatus())) {
             return ResponseEntity.status(HttpStatus.SEE_OTHER)
-                    .location(new URI("/routes/"+ status.getRouteId() + "/plan"))
+                    .location(new URI("/routes/" + status.getRouteId() + "/plan"))
                     .body(null);
         } else {
             return ResponseEntity.ok().body(status);

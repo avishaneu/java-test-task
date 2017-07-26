@@ -36,7 +36,7 @@ public class RouteController {
     @RequestMapping(path = "/", method = RequestMethod.POST, consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public Route createRoute(@Valid @RequestBody Route route){
+    public Route createRoute(@Valid @RequestBody Route route) {
         log.debug("Route creation requested. Route to be created: " + route);
         return routeService.createRoute(route);
     }
@@ -44,25 +44,24 @@ public class RouteController {
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Route getRoute(@PathVariable Integer id){
+    public Route getRoute(@PathVariable Integer id) {
         log.debug("Route details requested. Route id: " + id);
         return routeService.getRoute(id);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateRoute(@PathVariable Integer id, @RequestBody Route route){
+    public void updateRoute(@PathVariable Integer id, @RequestBody Route route) {
         log.debug("Route update requested. Route id: " + id + " . New route details: " + route);
         routeService.updateRoute(id, route);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteRoute(@PathVariable Integer id){
+    public void deleteRoute(@PathVariable Integer id) {
         log.debug("Route removal requested. Route id: " + id);
         routeService.deleteRoute(id);
     }
-
 
     @RequestMapping(path = "/{id}/plan", method = RequestMethod.GET)
     public ResponseEntity<Object> getRoutePlan(@PathVariable Integer id) throws URISyntaxException {

@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
  */
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes=Application.class)
+@SpringBootTest(classes = Application.class)
 public class SimulatedAnnealingAlgorithmTest {
 
     private List<Location> locations = new ArrayList<>();
@@ -29,7 +29,7 @@ public class SimulatedAnnealingAlgorithmTest {
     private SimulatedAnnealingAlgorithm algorithm;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         locations.add(new Location("", 0.0, 0.0));
         locations.add(new Location("", 2.0, 0.0));
         locations.add(new Location("", 4.0, 0.0));
@@ -41,6 +41,6 @@ public class SimulatedAnnealingAlgorithmTest {
 
     @Test
     public void algorithmTest() {
-       assertEquals(7.0, algorithm.solve(locations).getCost(), 0.0);
+        assertEquals(7.0, algorithm.solve(locations).getCost(), 0.0);
     }
 }

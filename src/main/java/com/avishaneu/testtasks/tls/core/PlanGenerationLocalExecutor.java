@@ -56,7 +56,7 @@ public class PlanGenerationLocalExecutor implements PlanGenerationExecutor {
                 taskExecutor.submit(new PlanGenerationTask(routeId)));
 
         if (previousRouteTask != null)
-        previousRouteTask.cancel(true);
+            previousRouteTask.cancel(true);
     }
 
     public class PlanGenerationTask implements Runnable {

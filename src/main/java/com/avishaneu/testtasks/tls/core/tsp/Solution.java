@@ -21,7 +21,7 @@ public class Solution {
         this.solutionCost = solutionCost;
     }
 
-    public double getCost(){
+    public double getCost() {
         if (solutionCost == null) {
             solutionCost = 0.0;
             Location previousLocation = null;

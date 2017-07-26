@@ -25,11 +25,11 @@ public class RoutePlanQueueServiceBasic implements RoutePlanQueueService {
         this.routePlanQueueDao = routePlanQueueDao;
     }
 
-    public RoutePlanGenerationStatus getRoutePlanStatusByRouteId(Integer routeId)  {
+    public RoutePlanGenerationStatus getRoutePlanStatusByRouteId(Integer routeId) {
         return routePlanQueueDao.getRoutePlanStatusByRouteId(routeId);
     }
 
-    public RoutePlanGenerationStatus getRoutePlanStatusByQueueId(Integer queueId)  {
+    public RoutePlanGenerationStatus getRoutePlanStatusByQueueId(Integer queueId) {
         return routePlanQueueDao.getRoutePlanStatusByQueueId(queueId);
     }
 }

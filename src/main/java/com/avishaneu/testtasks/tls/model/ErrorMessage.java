@@ -15,11 +15,11 @@ public class ErrorMessage {
         this.message = message;
     }
 
-    public ErrorMessage(HttpStatus status){
+    public ErrorMessage(HttpStatus status) {
         this(status.value(), status.getReasonPhrase());
     }
 
-    public ErrorMessage(HttpStatus status, String message){
+    public ErrorMessage(HttpStatus status, String message) {
         this(status.value(), message);
     }
 
