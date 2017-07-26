@@ -3,6 +3,7 @@ package com.avishaneu.testtasks.tls.controller;
 import com.avishaneu.testtasks.tls.model.ErrorMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
@@ -50,6 +51,14 @@ public class ExceptionHandlingController {
     public ErrorMessage jsonParseException(HttpMessageNotReadableException e) {
         log.warn("Unreadable input: "  + e.getMessage());
         return new ErrorMessage(HttpStatus.BAD_REQUEST, "Invalid input data");
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorMessage dataIntegrityViolationException(DataIntegrityViolationException e) {
+        log.warn("Data integrity violation: " +  e.getMessage());
+        return new ErrorMessage(HttpStatus.BAD_REQUEST, "Data integrity violation");
     }
 
     @ExceptionHandler(Throwable.class)
