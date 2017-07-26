@@ -26,7 +26,7 @@ public class SimulatedAnnealingAlgorithmTest {
     private List<Location> locations = new ArrayList<>();
 
     @Autowired
-    SimulatedAnnealingAlgorithm algorithm;
+    private SimulatedAnnealingAlgorithm algorithm;
 
     @Before
     public void setUp(){

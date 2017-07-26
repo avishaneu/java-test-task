@@ -3,7 +3,6 @@ package com.avishaneu.testtasks.tls.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
@@ -21,6 +20,7 @@ public class H2Configuration {
         return builder
                 .setType(EmbeddedDatabaseType.H2)
                 .addScript("sql/createStructure.sql")
+                .generateUniqueName(true)
                 .build();
     }
 
