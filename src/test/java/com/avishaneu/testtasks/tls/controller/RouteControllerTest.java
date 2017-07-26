@@ -32,6 +32,7 @@ public class RouteControllerTest {
     private static Route route;
     private static int routeId;
 
+    private static Location headLocation = new Location("Morlaw", 10.0500, 33.1210);
     private static Location location = new Location("Morlaw", 10.0500, 33.1210);
 
     @LocalServerPort
@@ -44,8 +45,8 @@ public class RouteControllerTest {
 
     @Before
     public void setUp() {
-        createLocation();
-        route = new Route("Interstate 60", location.getId(), Arrays.asList(location.getId()));
+        createLocations();
+        route = new Route("Interstate 60", headLocation.getId(), Arrays.asList(location.getId()));
         HttpEntity<Route> entity = new HttpEntity<>(route, headers);
 
         ResponseEntity<Route> response = restTemplate.exchange(getEndpoint() + "/",
@@ -125,10 +126,16 @@ public class RouteControllerTest {
         return getEndpoint(URL_PREFIX);
     }
 
-    private void createLocation() {
+    private void createLocations() {
         HttpEntity<Location> locationEntity = new HttpEntity<>(location, headers);
 
         ResponseEntity<Location> locationResponse = restTemplate.exchange(
+                getEndpoint(LocationControllerTest.URL_PREFIX) + "/",
+                HttpMethod.POST, locationEntity, Location.class);
+
+        headLocation.setId(locationResponse.getBody().getId());
+
+        locationResponse = restTemplate.exchange(
                 getEndpoint(LocationControllerTest.URL_PREFIX) + "/",
                 HttpMethod.POST, locationEntity, Location.class);
 

@@ -40,7 +40,7 @@ public class RouteServiceBasic implements RouteService {
     public void updateRoute(Integer id, Route route) {
         route.setId(id);
         routeDao.updateRoute(route);
-        if (route.getHead() != null || route.getLocations() != null) {
+        if (route.getHead() != null || (route.getLocations() != null && !route.getLocations().isEmpty())) {
             routePlanExecutor.generateForRoute(id);
         }
     }

@@ -22,7 +22,8 @@ CREATE TABLE route_location (
   FOREIGN KEY (route_id) REFERENCES route (id)
     ON DELETE CASCADE,
   FOREIGN KEY (location_id) REFERENCES location (id)
-    ON DELETE CASCADE
+    ON DELETE CASCADE,
+  CHECK (location_id <> (SELECT head FROM route r WHERE r.id = route_id ))
 );
 
 DROP TABLE IF EXISTS route_plan_generation_queue;
