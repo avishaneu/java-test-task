@@ -2,6 +2,7 @@ package com.avishaneu.testtasks.tls.dao.implementation;
 
 import com.avishaneu.testtasks.tls.dao.LocationDao;
 import com.avishaneu.testtasks.tls.model.Location;
+import com.avishaneu.testtasks.tls.utils.NonexistentObjectRequested;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.util.Collections;
 import java.util.List;
 
 import static com.avishaneu.testtasks.tls.utils.DBUtils.setDoubleOrNull;
@@ -52,12 +52,12 @@ public class LocationDaoH2 implements LocationDao {
         return location;
     }
 
-    public Location getLocation(Integer id) {
+    public Location getLocation(Integer id)  {
         String sql = "SELECT * FROM location WHERE id = ?";
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Location.class));
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            throw new NonexistentObjectRequested("location", id, e);
         }
     }
 
@@ -100,7 +100,7 @@ public class LocationDaoH2 implements LocationDao {
             return jdbcTemplate.query(sql.toString(), new Object[]{id, id},
                     (rs, rowNum) -> rs.getInt(1));
         } catch (EmptyResultDataAccessException e) {
-            return Collections.emptyList();
+            throw new NonexistentObjectRequested("location", id, e);
         }
     }
 }

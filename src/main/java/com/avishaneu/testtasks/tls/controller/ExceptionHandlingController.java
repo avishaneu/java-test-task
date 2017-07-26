@@ -1,6 +1,7 @@
 package com.avishaneu.testtasks.tls.controller;
 
 import com.avishaneu.testtasks.tls.model.ErrorMessage;
+import com.avishaneu.testtasks.tls.utils.NonexistentObjectRequested;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -59,6 +60,14 @@ public class ExceptionHandlingController {
     public ErrorMessage dataIntegrityViolationException(DataIntegrityViolationException e) {
         log.warn("Data integrity violation: " + e.getMessage());
         return new ErrorMessage(HttpStatus.BAD_REQUEST, "Data integrity violation");
+    }
+
+    @ExceptionHandler(NonexistentObjectRequested.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorMessage nonexistentObjectRequested(NonexistentObjectRequested e) {
+        log.warn("Nonexistent object requested: " + e.getMessage());
+        return new ErrorMessage(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 
     @ExceptionHandler(Throwable.class)

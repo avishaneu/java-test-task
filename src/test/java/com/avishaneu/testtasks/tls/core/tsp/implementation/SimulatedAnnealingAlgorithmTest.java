@@ -16,7 +16,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by tkalnitskaya on 26.07.2017.
+ * Created by avishaneu on 7/26/2017.
  */
 
 @RunWith(SpringRunner.class)
@@ -41,6 +41,6 @@ public class SimulatedAnnealingAlgorithmTest {
 
     @Test
     public void algorithmTest() {
-        assertEquals(7.0, algorithm.solve(locations).getCost(), 0.0);
+        assertEquals(7.0, algorithm.solve(locations).getCost(), 1.0);
     }
 }

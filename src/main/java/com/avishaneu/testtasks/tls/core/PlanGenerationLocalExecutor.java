@@ -78,7 +78,7 @@ public class PlanGenerationLocalExecutor implements PlanGenerationExecutor {
 
             log.info("Completed execution for route: " + routeId +
                     ", with time: " + (System.currentTimeMillis() - start));
-            routeDao.saveRoutePlan(locations);
+            routeDao.saveRoutePlan(routeId, locations);
             routePlanQueueDao.updateRouteGenerationStatus(routeId, RoutePlanGenerationStatus.Status.COMPLETED);
         }
     }

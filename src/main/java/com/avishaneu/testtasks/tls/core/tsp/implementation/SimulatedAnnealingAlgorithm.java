@@ -38,7 +38,6 @@ public class SimulatedAnnealingAlgorithm implements TSPSolvingAlgorithm {
             if (currentSolution.getCost() < bestSolutionSoFar.getCost()) {
                 bestSolutionSoFar = currentSolution.copy();
             }
-
             currentTemperature *= coolingRate;
         }
         return bestSolutionSoFar;

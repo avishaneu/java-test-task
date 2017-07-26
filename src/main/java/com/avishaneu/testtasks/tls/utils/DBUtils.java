@@ -13,7 +13,6 @@ public class DBUtils {
         if (value == null) {
             ps.setNull(index, Types.VARCHAR);
         } else {
-
             ps.setString(index, value);
         }
     }

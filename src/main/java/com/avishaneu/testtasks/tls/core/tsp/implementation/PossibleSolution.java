@@ -10,7 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Created by avishaneu on 7/25/17.
  */
-public class PossibleSolution extends Solution {
+class PossibleSolution extends Solution {
 
     PossibleSolution(List<Location> locations) {
         super(locations);
@@ -20,7 +20,7 @@ public class PossibleSolution extends Solution {
         return new PossibleSolution(new ArrayList<>(this.locations));
     }
 
-    public void shuffle() {
+    void shuffle() {
         this.solutionCost = null;
 
         int firstIndex = ThreadLocalRandom.current().nextInt(1, locations.size());
@@ -31,6 +31,5 @@ public class PossibleSolution extends Solution {
 
         locations.set(firstIndex, secondLocation);
         locations.set(secondIndex, firstLocation);
-
     }
 }

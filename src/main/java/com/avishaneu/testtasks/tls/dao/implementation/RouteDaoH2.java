@@ -4,6 +4,7 @@ package com.avishaneu.testtasks.tls.dao.implementation;
 import com.avishaneu.testtasks.tls.dao.RouteDao;
 import com.avishaneu.testtasks.tls.model.Location;
 import com.avishaneu.testtasks.tls.model.Route;
+import com.avishaneu.testtasks.tls.utils.NonexistentObjectRequested;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Collections;
 import java.util.List;
 
 import static com.avishaneu.testtasks.tls.utils.DBUtils.setIntegerOrNull;
@@ -96,7 +96,7 @@ public class RouteDaoH2 implements RouteDao {
                     (rs, rowNum) -> rs.getInt(1)));
             return route;
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            throw new NonexistentObjectRequested("route", id, e);
         }
     }
 
@@ -143,7 +143,7 @@ public class RouteDaoH2 implements RouteDao {
             return jdbcTemplate.query(sql.toString(), new Object[]{id, id},
                     (rs, rowNum) -> rs.getInt(1));
         } catch (EmptyResultDataAccessException e) {
-            return Collections.emptyList();
+            throw new NonexistentObjectRequested("route", id, e);
         }
     }
 
@@ -163,11 +163,11 @@ public class RouteDaoH2 implements RouteDao {
             return jdbcTemplate.query(sql.toString(), new Object[]{id, id},
                     new BeanPropertyRowMapper<>(Location.class));
         } catch (EmptyResultDataAccessException e) {
-            return Collections.emptyList();
+            throw new NonexistentObjectRequested("route", id, e);
         }
     }
 
-    public void saveRoutePlan(List<Location> locations) {
+    public void saveRoutePlan(Integer id, List<Location> locations) {
         String createSql = "UPDATE route_location SET location_order = ? WHERE route_id = ? and location_id = ?";
         jdbcTemplate.batchUpdate(createSql, new BatchPreparedStatementSetter() {
 
@@ -175,7 +175,8 @@ public class RouteDaoH2 implements RouteDao {
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 Location location = locations.get(i);
                 ps.setInt(1, i);
-                ps.setInt(2, location.getId());
+                ps.setInt(2, id);
+                ps.setInt(3, location.getId());
             }
 
             @Override

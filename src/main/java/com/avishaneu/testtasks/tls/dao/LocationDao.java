@@ -2,6 +2,7 @@ package com.avishaneu.testtasks.tls.dao;
 
 
 import com.avishaneu.testtasks.tls.model.Location;
+import com.avishaneu.testtasks.tls.utils.NonexistentObjectRequested;
 
 import java.util.List;
 

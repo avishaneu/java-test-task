@@ -22,5 +22,5 @@ public interface RouteDao {
 
     List<Location> getRouteLocations(Integer id);
 
-    void saveRoutePlan(List<Location> locations);
+    void saveRoutePlan(Integer id, List<Location> locations);
 }

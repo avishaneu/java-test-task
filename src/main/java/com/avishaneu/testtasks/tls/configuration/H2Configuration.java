@@ -20,7 +20,7 @@ public class H2Configuration {
         return builder
                 .setType(EmbeddedDatabaseType.H2)
                 .addScript("sql/createStructure.sql")
-                .generateUniqueName(true)
+                .generateUniqueName(true) //see https://jira.spring.io/browse/SPR-14795
                 .build();
     }
 

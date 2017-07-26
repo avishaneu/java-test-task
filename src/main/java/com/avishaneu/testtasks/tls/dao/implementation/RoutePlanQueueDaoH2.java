@@ -2,6 +2,7 @@ package com.avishaneu.testtasks.tls.dao.implementation;
 
 import com.avishaneu.testtasks.tls.dao.RoutePlanQueueDao;
 import com.avishaneu.testtasks.tls.model.RoutePlanGenerationStatus;
+import com.avishaneu.testtasks.tls.utils.NonexistentObjectRequested;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class RoutePlanQueueDaoH2 implements RoutePlanQueueDao {
                     (rs, rowNum) -> new RoutePlanGenerationStatus(routeId,
                             rs.getInt(1), rs.getInt(2)));
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            throw new NonexistentObjectRequested("route", routeId, e);
         }
     }
 
@@ -44,7 +45,7 @@ public class RoutePlanQueueDaoH2 implements RoutePlanQueueDao {
                     (rs, rowNum) -> new RoutePlanGenerationStatus(rs.getInt(1),
                             rs.getInt(2), queueId));
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            throw new NonexistentObjectRequested("queue element", queueId, e);
         }
     }
 
