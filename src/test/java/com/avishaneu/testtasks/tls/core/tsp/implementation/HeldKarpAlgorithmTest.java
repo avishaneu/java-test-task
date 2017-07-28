@@ -2,7 +2,6 @@ package com.avishaneu.testtasks.tls.core.tsp.implementation;
 
 import com.avishaneu.testtasks.tls.Application;
 import com.avishaneu.testtasks.tls.core.tsp.implementation.hk.HeldKarpAlgorithm;
-import com.avishaneu.testtasks.tls.core.tsp.implementation.sa.SimulatedAnnealingAlgorithm;
 import com.avishaneu.testtasks.tls.model.Location;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,13 +31,13 @@ public class HeldKarpAlgorithmTest {
 
     @Before
     public void setUp() {
-        locations.add(new Location(1, 0.0, 0.0));
         locations.add(new Location(2, 2.0, 0.0));
         locations.add(new Location(3, 4.0, 0.0));
         locations.add(new Location(4, 4.0, 1.0));
         locations.add(new Location(5, 2.0, 1.0));
         locations.add(new Location(6, 0.0, 1.0));
         Collections.shuffle(locations);
+        locations.add(0, new Location(1, 0.0, 0.0));
     }
 
     @Test

@@ -63,6 +63,7 @@ public class HeldKarpAlgorithm implements TSPSolvingAlgorithm {
         if (optimalNext != null) {
             cache.costs.put(subProblem, minCost);
             cache.next.put(subProblem, optimalNext);
+            return minCost;
         }
         return 0;
     }
