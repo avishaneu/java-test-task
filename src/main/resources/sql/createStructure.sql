@@ -23,6 +23,7 @@ CREATE TABLE route_location (
     ON DELETE CASCADE,
   FOREIGN KEY (location_id) REFERENCES location (id)
     ON DELETE CASCADE,
+  PRIMARY KEY(route_id, location_id),
   CHECK (location_id <> (SELECT head FROM route r WHERE r.id = route_id ))
 );
 
