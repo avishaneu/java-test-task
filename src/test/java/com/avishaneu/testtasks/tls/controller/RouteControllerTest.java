@@ -109,7 +109,7 @@ public class RouteControllerTest {
     @Test
     public void invalidRouteCreate() {
         HttpEntity<Route> entity = new HttpEntity<>(
-                new Route("Interstate 60", 1, new ArrayList<>()), headers);
+                new Route("Interstate 60", null, new ArrayList<>()), headers);
 
         ResponseEntity<Route> response = restTemplate.exchange(getEndpoint() + "/",
                 HttpMethod.POST, entity, Route.class);
