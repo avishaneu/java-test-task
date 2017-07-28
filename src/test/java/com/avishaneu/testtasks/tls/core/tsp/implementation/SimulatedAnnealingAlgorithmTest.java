@@ -31,13 +31,13 @@ public class SimulatedAnnealingAlgorithmTest {
 
     @Before
     public void setUp() {
-        locations.add(new Location(1, 0.0, 0.0));
-        locations.add(new Location(2, 2.0, 0.0));
-        locations.add(new Location(3, 4.0, 0.0));
-        locations.add(new Location(4, 4.0, 1.0));
-        locations.add(new Location(5, 2.0, 1.0));
-        locations.add(new Location(6, 0.0, 1.0));
+        locations.add(new Location(2, 2.0, 2.0));
+        locations.add(new Location(3, 4.0, 2.0));
+        locations.add(new Location(4, 4.0, 3.0));
+        locations.add(new Location(5, 2.0, 3.0));
+        locations.add(new Location(6, 0.0, 3.0));
         Collections.shuffle(locations);
+        locations.add(0, new Location(1, 0.0, 2.0));
     }
 
     @Test
