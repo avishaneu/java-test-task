@@ -115,7 +115,7 @@ public class RouteDaoH2 implements RouteDao {
             return ps;
         });
 
-        if (route.getLocations() == null || route.getLocations().isEmpty()) return;
+        if (route.getLocations() == null) return;
         setLocationsToRoute(route.getId(), route.getLocations());
     }
 

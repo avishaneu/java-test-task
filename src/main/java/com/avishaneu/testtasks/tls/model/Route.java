@@ -19,7 +19,6 @@ public class Route {
     private Integer head;
 
     @NotNull
-    @NotEmpty
     private List<Integer> locations;
 
     public Route() {
