@@ -99,7 +99,7 @@ public class LocationControllerTest {
 
     @Test
     public void invalidLocationCreate() {
-        HttpEntity<Location> entity = new HttpEntity<>(new Location(null, 10.0500, 33.1210), headers);
+        HttpEntity<Location> entity = new HttpEntity<>(new Location("", 10.0500, null), headers);
 
         ResponseEntity<Location> response = restTemplate.exchange(getEndpoint() + "/",
                 HttpMethod.POST, entity, Location.class);

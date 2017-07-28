@@ -1,6 +1,8 @@
-package com.avishaneu.testtasks.tls.core.tsp.implementation;
+package com.avishaneu.testtasks.tls.core.tsp.implementation.sa;
 
+import com.avishaneu.testtasks.tls.core.tsp.Solution;
 import com.avishaneu.testtasks.tls.core.tsp.TSPSolvingAlgorithm;
+import com.avishaneu.testtasks.tls.core.tsp.implementation.CostMap;
 import com.avishaneu.testtasks.tls.model.Location;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -12,7 +14,7 @@ import java.util.List;
  * based on http://katrinaeg.com/simulated-annealing.html
  * and https://en.wikipedia.org/wiki/Simulated_annealing
  */
-@Component
+@Component(value = "sa")
 public class SimulatedAnnealingAlgorithm implements TSPSolvingAlgorithm {
 
     @Value("${algorithms.sa.initial-temperature}")
@@ -21,28 +23,28 @@ public class SimulatedAnnealingAlgorithm implements TSPSolvingAlgorithm {
     @Value("${algorithms.sa.cooling-rate}")
     private double coolingRate;
 
-    public PossibleSolution solve(List<Location> input) {
+    public Solution solve(List<Location> input) {
         double currentTemperature = initialTemperature;
 
         CostMap costMap = new CostMap(input);
 
-        PossibleSolution currentSolution = new PossibleSolution(input);
+        PossibleSolution currentSolution = new PossibleSolution(input, costMap.getCost(input));
         PossibleSolution bestSolutionSoFar = currentSolution.copy();
 
         while (currentTemperature > 1) {
             PossibleSolution newSolution = currentSolution.copy();
             newSolution.shuffle();
+            newSolution.setCost(costMap.getCost(newSolution.getLocations()));
 
-            if (acceptNewSolution(costMap.getCost(newSolution), costMap.getCost(currentSolution), currentTemperature)) {
+            if (acceptNewSolution(newSolution.getCost(), currentSolution.getCost(), currentTemperature)) {
                 currentSolution = newSolution.copy();
             }
 
-            if (costMap.getCost(currentSolution) < costMap.getCost(bestSolutionSoFar)) {
+            if (currentSolution.getCost() < bestSolutionSoFar.getCost()) {
                 bestSolutionSoFar = currentSolution.copy();
             }
             currentTemperature *= coolingRate;
         }
-        bestSolutionSoFar.setSolutionCost(costMap.getCost(bestSolutionSoFar));
         return bestSolutionSoFar;
     }
 

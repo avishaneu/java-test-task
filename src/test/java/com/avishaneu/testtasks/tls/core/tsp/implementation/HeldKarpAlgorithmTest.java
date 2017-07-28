@@ -1,6 +1,7 @@
 package com.avishaneu.testtasks.tls.core.tsp.implementation;
 
 import com.avishaneu.testtasks.tls.Application;
+import com.avishaneu.testtasks.tls.core.tsp.implementation.hk.HeldKarpAlgorithm;
 import com.avishaneu.testtasks.tls.core.tsp.implementation.sa.SimulatedAnnealingAlgorithm;
 import com.avishaneu.testtasks.tls.model.Location;
 import org.junit.Before;
@@ -22,12 +23,12 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
-public class SimulatedAnnealingAlgorithmTest {
+public class HeldKarpAlgorithmTest {
 
     private List<Location> locations = new ArrayList<>();
 
     @Autowired
-    private SimulatedAnnealingAlgorithm algorithm;
+    private HeldKarpAlgorithm algorithm;
 
     @Before
     public void setUp() {
@@ -42,6 +43,6 @@ public class SimulatedAnnealingAlgorithmTest {
 
     @Test
     public void algorithmTest() {
-        assertEquals(7.0, algorithm.solve(locations).getCost(), 1.0);
+        assertEquals(7.0, algorithm.solve(locations).getCost(), 0.0);
     }
 }

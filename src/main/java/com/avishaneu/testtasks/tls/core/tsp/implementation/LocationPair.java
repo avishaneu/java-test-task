@@ -10,7 +10,7 @@ public class LocationPair {
     private Integer firstLocationId;
     private Integer secondLocationId;
 
-    LocationPair(Location firstLocation, Location secondLocation) {
+    public LocationPair(Location firstLocation, Location secondLocation) {
         this.firstLocationId = firstLocation.getId();
         this.secondLocationId = secondLocation.getId();
     }

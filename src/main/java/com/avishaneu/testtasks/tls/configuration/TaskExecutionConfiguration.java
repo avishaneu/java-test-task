@@ -1,7 +1,10 @@
 package com.avishaneu.testtasks.tls.configuration;
 
+import com.avishaneu.testtasks.tls.core.tsp.TSPSolvingAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -12,6 +15,8 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 @Configuration
 public class TaskExecutionConfiguration {
 
+    private ApplicationContext context;
+
     @Value("${taskexecutor.pool.core}")
     private int corePoolSize;
 
@@ -21,6 +26,11 @@ public class TaskExecutionConfiguration {
     @Value("${taskexecutor.queue.capacity}")
     private int queueCapacity;
 
+    @Autowired
+    public TaskExecutionConfiguration(ApplicationContext context) {
+        this.context = context;
+    }
+
     @Bean
     @Qualifier("taskExecutor")
     public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
@@ -29,5 +39,10 @@ public class TaskExecutionConfiguration {
         threadPoolTaskExecutor.setMaxPoolSize(maxPoolSize);
         threadPoolTaskExecutor.setQueueCapacity(queueCapacity);
         return threadPoolTaskExecutor;
+    }
+
+    @Bean(name = "algorithm")
+    public TSPSolvingAlgorithm algorithm(@Value("${algorithm}") String qualifier) {
+        return (TSPSolvingAlgorithm) context.getBean(qualifier);
     }
 }

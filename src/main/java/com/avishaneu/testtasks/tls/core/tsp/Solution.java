@@ -10,21 +10,27 @@ import java.util.List;
 public class Solution {
 
     protected List<Location> locations;
-    protected Double solutionCost;
+    protected Double cost;
 
     public Solution(List<Location> locations) {
         this.locations = locations;
     }
 
+    public Solution(List<Location> locations, Double cost) {
+        this(locations);
+        this.cost = cost;
+    }
+
+
     public List<Location> getLocations() {
         return locations;
     }
 
-    public Double getSolutionCost() {
-        return solutionCost;
+    public Double getCost() {
+        return cost;
     }
 
-    public void setSolutionCost(Double solutionCost) {
-        this.solutionCost = solutionCost;
+    public void setCost(Double cost) {
+        this.cost = cost;
     }
 }

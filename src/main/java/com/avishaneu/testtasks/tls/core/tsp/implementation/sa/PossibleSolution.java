@@ -1,4 +1,4 @@
-package com.avishaneu.testtasks.tls.core.tsp.implementation;
+package com.avishaneu.testtasks.tls.core.tsp.implementation.sa;
 
 import com.avishaneu.testtasks.tls.core.tsp.Solution;
 import com.avishaneu.testtasks.tls.model.Location;
@@ -13,16 +13,16 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 class PossibleSolution extends Solution {
 
-    PossibleSolution(List<Location> locations) {
-        super(locations);
+    PossibleSolution(List<Location> locations, Double cost) {
+        super(locations, cost);
     }
 
     PossibleSolution copy() {
-        return new PossibleSolution(new ArrayList<>(this.locations));
+        return new PossibleSolution(new ArrayList<>(this.locations), this.cost);
     }
 
     void shuffle() {
-        this.solutionCost = null;
+        this.cost = null;
 
         int firstIndex = ThreadLocalRandom.current().nextInt(1, locations.size());
         int secondIndex = ThreadLocalRandom.current().nextInt(1, locations.size());
